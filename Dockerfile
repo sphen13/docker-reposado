@@ -12,8 +12,6 @@ ADD uwsgi.ini /app/
 RUN ln -s /reposado/code/reposadolib /app
 RUN ln -s /reposado/code/preferences.plist /app
 
-VOLUME /reposado/code
 VOLUME /reposado/html
 VOLUME /reposado/metadata
-EXPOSE 80
-EXPOSE 8088
+EXPOSE 80 8088
