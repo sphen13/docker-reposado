@@ -25,10 +25,7 @@ RUN git clone https://github.com/jessepeterson/margarita.git /home/app/margarita
 RUN ln -s /reposado/code/reposadolib /home/app/margarita
 RUN ln -s /reposado/code/preferences.plist /home/app/margarita
 
-
-VOLUME /reposado/code
 EXPOSE 8080
 
-RUN rm -f /etc/nginx/sites-enabled/default
-RUN rm -f /etc/service/nginx/down
+RUN rm -f /etc/nginx/sites-enabled/default && rm -f /etc/service/nginx/down
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
