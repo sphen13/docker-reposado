@@ -1,31 +1,19 @@
-# Use phusion/passenger-full as base image. To make your builds reproducible, make
-# sure you lock down to a specific version, not to `latest`!
-# See https://github.com/phusion/passenger-docker/blob/master/Changelog.md for
-# a list of version numbers.
-FROM phusion/passenger-full:0.9.11
+FROM tiangolo/uwsgi-nginx-flask:python2.7
 
 # Set correct environment variables.
-ENV HOME /root
-ENV LOCALCATALOGURLBASE http://reposado
+ENV LOCALCATALOGURLBASE http://reposado:8080
 
-# Use baseimage-docker's init process.
-CMD ["/sbin/my_init"]
-
-RUN apt-get update && apt-get install -y \
-  python-pip \
-  python-dev \
-  curl
-
-RUN git clone https://github.com/wdas/reposado.git /reposado
+COPY reposado /reposado
+RUN rm -rf /app
+COPY margarita /app
 ADD preferences.plist /reposado/code/
-ADD reposado.conf /etc/nginx/sites-enabled/reposado.conf
-RUN pip install flask
-RUN pip install simplejson
-RUN git clone https://github.com/jessepeterson/margarita.git /home/app/margarita
-RUN ln -s /reposado/code/reposadolib /home/app/margarita
-RUN ln -s /reposado/code/preferences.plist /home/app/margarita
+ADD reposado.conf /etc/nginx/conf.d/reposado.conf
+ADD uwsgi.ini /app/
+ADD entrypoint.sh /
 
-EXPOSE 8080
+RUN ln -s /reposado/code/reposadolib /reposado/code/preferences.plist /app && \
+    chmod +x /entrypoint.sh
 
-RUN rm -f /etc/nginx/sites-enabled/default && rm -f /etc/service/nginx/down
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+VOLUME ["/reposado/html", "/reposado/metadata"]
+
+EXPOSE 80 8080
