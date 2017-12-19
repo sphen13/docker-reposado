@@ -1,21 +1,7 @@
 docker-reposado
 ===============
 
-Docker container to run reposado and margarita to serve softwareupdates using nginx.
-
-sample usage.
-
-```
-docker run --rm -i -t sphen/reposado python /reposado/code/repoutil --help
-```
-
-To have persistent storage, use a volume container. Example:
-
-```
-docker run --rm -i -t --volumes-from reposado sphen/reposado python /reposado/code/repo_sync
-```
-
-You can schedule the above command via cron/systemd or run it manually.
+Docker container to run [Reposado](https://github.com/wdas/reposado) and [Margarita](https://github.com/jessepeterson/margarita) to serve softwareupdates using nginx.
 
 ### Environment Variables
 
@@ -25,20 +11,52 @@ LOCALCATALOGURLBASE | http://reposado:8080 | Base URL for repo
 MINOSVERSION | | Minimum minor OS version to mirror updates for. _(ie. 10.12.X = 12)_
 USERNAME | admin | Margarita username
 PASSWORD | password | Margarita password
+PORT | 8080 | Port reposado listens on
+LISTEN_PORT | 80 | Port margarita listens on
 
-## Margarita
-[Margarita](https://github.com/jessepeterson/margarita) is also bundled in but is not accessible unless you do a port-mapping.
+## Sample Usage
 
-Within the container, port 80 is listening for margarita and port 8080 is listening for reposado.  Margarita can be accessible on any port you choose depending on your port mapping.
+First we would want to set up a persistent storage location for reposado, for example:
 
-You can serve both reposado and margarita with something like:
+```
+mkdir -p /var/docker/reposado/html /var/docker/reposado/metadata
+chmod -R 777 /var/docker/reposado
+```
+
+We can now setup the master container that runs both margarita and hosts reposado.  For example:
+
 ```
 docker run -d --name reposado \
     -v /var/docker/reposado/html:/reposado/html \
     -v /var/docker/reposado/metadata:/reposado/metadata \
+    -e USERNAME=admin \
+    -e PASSWORD='password' \
     -p 80:80 \
     -p 8080:8080 \
+    --restart always \
     sphen/reposado
 ```
 
-You can simply only serve reposado by excluding `-p 8080:8080`.  You may also serve on a different port than 80 for margarita by chnanging `-p 80:80` to `-p 8089:80` for example.
+Nothing is in it! (in our example) so now we just interact with `repoutil` or `repo_sync` in a linked container.  You can schedule the command via cron/systemd or run it manually.  For example:
+
+```
+docker run --rm -it --volumes-from reposado --link reposado sphen/reposado python /reposado/code/repoutil --help
+```
+
+Or to actually trigger a mirror/update:
+
+```
+docker run --rm -it --volumes-from reposado --link reposado sphen/reposado python /reposado/code/repo_sync
+```
+
+By using `--volumes-from` and `--link` we are able to take and use settings from our master container.  Please take care that if you name your master container something other than **reposado** you will need to update these commands.
+
+## What Else is There?
+
+Well - if you are versed in docker you are on your way - but as a hint, you can simply only serve reposado by excluding `-p 8080:8080`.  You may also serve on a different port than 80 for margarita by changing `-p 80:80` to `-p 8089:80` for example.  There are other **environment variables** listed above that may help you tweak things.
+
+### But I want HTTPS!!!!
+
+Well, have fun tweaking the container within nginx and certs - or better yet maybe use something like [caddy-docker](https://github.com/abiosoft/caddy-docker) in front of it all with automatic lets-encrypt.
+
+**Push Requests and feedback welcome!**

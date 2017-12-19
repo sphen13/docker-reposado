@@ -9,9 +9,10 @@ COPY margarita /app
 ADD preferences.plist /reposado/code/
 ADD reposado.conf /etc/nginx/conf.d/reposado.conf
 ADD uwsgi.ini /app/
-ADD prestart.sh /app/
+ADD entrypoint.sh /
 
-RUN ln -s /reposado/code/reposadolib /reposado/code/preferences.plist /app
+RUN ln -s /reposado/code/reposadolib /reposado/code/preferences.plist /app && \
+    chmod +x /entrypoint.sh
 
 VOLUME ["/reposado/html", "/reposado/metadata"]
 
