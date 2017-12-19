@@ -3,10 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>LocalCatalogURLBase</key>
-  <string>http://reposado:8080</string>
+	<string>REPLACEME</string>
 	<key>UpdatesMetadataDir</key>
 	<string>/reposado/metadata</string>
 	<key>UpdatesRootDir</key>
 	<string>/reposado/html</string>
+REPLACECATALOGS
 </dict>
 </plist>

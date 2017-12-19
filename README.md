@@ -1,32 +1,42 @@
 docker-reposado
 ===============
 
-Docker container to run reposado and serve softwareupdates using nginx
+Docker container to run reposado and margarita to serve softwareupdates using nginx.
 
-sample usage. 
+sample usage.
 
 ```
- docker run --rm -i -t macadmins/reposado python /reposado/code/repoutil --help
- ```
- To have persistent storage, use a volume container. Example:
- ```
- docker run --rm -i -t --volumes-from reposado-data macadmins/reposado python /reposado/code/repo_sync
- ```
+docker run --rm -i -t sphen/reposado python /reposado/code/repoutil --help
+```
+
+To have persistent storage, use a volume container. Example:
+
+```
+docker run --rm -i -t --volumes-from reposado sphen/reposado python /reposado/code/repo_sync
+```
+
 You can schedule the above command via cron/systemd or run it manually.
 
-##Note
-Currently, the port *has* to be 8080 for both the container and the host. The LocalCatalogBaseURL is http://reposado:8080
+### Environment Variables
 
-#Margarita 
-[Margarita](https://github.com/jessepeterson/margarita) is also bundled in but not enabled by default. 
-You can run the Margarita Flask server either together with nginx, by opening both -p 8080 and -p 8089 or separately like so:
+Variable | Default | Note
+--- | --- | ---
+LOCALCATALOGURLBASE | http://reposado:8080 | Base URL for repo
+MINOSVERSION | | Minimum minor OS version to mirror updates for. _(ie. 10.12.X = 12)_
+
+## Margarita
+[Margarita](https://github.com/jessepeterson/margarita) is also bundled in but is not accessible unless you do a port-mapping.
+
+Within the container, port 80 is listening for margarita and port 8080 is listening for reposado.  Margarita can be accessible on any port you choose depending on your port mapping.
+
+You can serve both reposado and margarita with something like:
 ```
-/usr/bin/docker run --rm --name margarita --volumes-from reposado-data -p 8089:8089 macadmins/reposado python /home/app/margarita/margarita.py
+docker run -d --name reposado \
+    -v /var/docker/reposado/html:/reposado/html \
+    -v /var/docker/reposado/metadata:/reposado/metadata \
+    -p 80:80 \
+    -p 8080:8080 \
+    sphen/reposado
 ```
 
-#TODO
-* passenger_wsgi script for margarita
-* nginx configuration file for margarita
-* move reposado.conf and margarita.conf to sites-available and symlink to sites-enabled as needed
-* basic authentication for margarita
-* allow using a different LocalCatalogBaseURL (suggestions welcome)
+You can simply only serve reposado by excluding `-p 8080:8080`.  You may also serve on a different port than 80 for margarita by chnanging `-p 80:80` to `-p 8089:80` for example.

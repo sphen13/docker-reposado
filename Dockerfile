@@ -1,19 +1,24 @@
-FROM tiangolo/uwsgi-nginx-flask:flask
+FROM tiangolo/uwsgi-nginx-flask:python2.7
 
 # Set correct environment variables.
-ENV LOCALCATALOGURLBASE http://reposado
+ENV LOCALCATALOGURLBASE http://reposado:8080
 
 ADD https://api.github.com/repos/wdas/reposado/git/refs/heads/master /tmp/reposado-version.json
-RUN git clone https://github.com/wdas/reposado.git /reposado
+ADD https://api.github.com/repos/jessepeterson/margarita/git/refs/heads/master /tmp/margarita-version.json
+
+RUN cd / && \
+    git clone https://github.com/wdas/reposado.git /reposado && \
+    rm -rf /app && \
+    git clone https://github.com/jessepeterson/margarita.git /app
+
 ADD preferences.plist /reposado/code/
 ADD reposado.conf /etc/nginx/conf.d/reposado.conf
-RUN rm -rf /app
-ADD https://api.github.com/repos/jessepeterson/margarita/git/refs/heads/master /tmp/margarita-version.json
-RUN git clone https://github.com/jessepeterson/margarita.git /app
 ADD uwsgi.ini /app/
-RUN ln -s /reposado/code/reposadolib /reposado/code/preferences.plist /app
+ADD prestart.sh /app/
 
-RUN rm -f /tmp/*-version.json
+RUN ln -s /reposado/code/reposadolib /reposado/code/preferences.plist /app && \
+    rm -f /tmp/*-version.json
 
-VOLUME /reposado/html /reposado/metadata
-EXPOSE 80 8088
+VOLUME ["/reposado/html", "/reposado/metadata"]
+
+EXPOSE 80 8080
