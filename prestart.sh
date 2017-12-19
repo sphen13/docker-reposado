@@ -37,4 +37,9 @@ if [[ ${MINOSVERSION} ]]; then
   sed -i "s|REPLACECATALOGS|$catalogs|g" /reposado/code/preferences.plist
 fi
 
-cat /reposado/code/preferences.plist
+if [[ ${USERNAME} && ${PASSWORD} ]]; then
+  echo "Setting Margarita username/password"
+
+  sed -i "s|'admin'|'$USERNAME'|g" /app/margarita.py
+  sed -i "s|'password'|'$PASSWORD'|g" /app/margarita.py
+fi

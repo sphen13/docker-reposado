@@ -23,6 +23,8 @@ Variable | Default | Note
 --- | --- | ---
 LOCALCATALOGURLBASE | http://reposado:8080 | Base URL for repo
 MINOSVERSION | | Minimum minor OS version to mirror updates for. _(ie. 10.12.X = 12)_
+USERNAME | admin | Margarita username
+PASSWORD | password | Margarita password
 
 ## Margarita
 [Margarita](https://github.com/jessepeterson/margarita) is also bundled in but is not accessible unless you do a port-mapping.

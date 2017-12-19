@@ -1,0 +1,4 @@
+[submodule "margarita"]
+	path = margarita
+	url = https://github.com/sphen13/margarita.git
+	branch = flask-basic-auth
