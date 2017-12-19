@@ -2,3 +2,7 @@
 	path = margarita
 	url = https://github.com/sphen13/margarita.git
 	branch = flask-basic-auth
+[submodule "reposado"]
+	path = reposado
+	url = https://github.com/wdas/reposado.git
+	branch = master
