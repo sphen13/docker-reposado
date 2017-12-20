@@ -2,6 +2,7 @@ FROM tiangolo/uwsgi-nginx-flask:python2.7
 
 # Set correct environment variables.
 ENV LOCALCATALOGURLBASE http://reposado:8080
+ENV PORT 80
 
 COPY reposado /reposado
 RUN rm -rf /app
