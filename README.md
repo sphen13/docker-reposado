@@ -37,6 +37,8 @@ docker run -d --name reposado \
     sphen/reposado
 ```
 
+> **Note:** _the instructions below rely on you naming your docker container "reposado" specifically.  If not, linking your temporary containers to the master will not reference the configuration variables properly._
+
 Nothing is in it! (in our example) so now we just interact with `repoutil` or `repo_sync` in a linked container.  You can schedule the command via cron/systemd or run it manually.  For example:
 
 ```

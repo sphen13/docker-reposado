@@ -38,25 +38,25 @@ if [[ ${MINOSVERSION} || ${REPOSADO_ENV_MINOSVERSION} ]]; then
     catalogs="${catalogs}\n  <string>http://swscan.apple.com/content/catalogs/index.sucatalog</string>\n  <string>http://swscan.apple.com/content/catalogs/index-1.sucatalog</string>\n  <string>http://swscan.apple.com/content/catalogs/others/index-leopard.merged-1.sucatalog</string>\n  <string>http://swscan.apple.com/content/catalogs/others/index-leopard-snowleopard.merged-1.sucatalog</string>"
   fi
   if [[ ${MINOSVERSION} -le 7 ]]; then
-    catalogs="${catalogs}\n  <string>index-lion-snowleopard-leopard.merged-1.sucatalog</string>"
+    catalogs="${catalogs}\n  <string>http://swscan.apple.com/content/catalogs/others/index-lion-snowleopard-leopard.merged-1.sucatalog</string>"
   fi
   if [[ ${MINOSVERSION} -le 8 ]]; then
-    catalogs="${catalogs}\n  <string>index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
+    catalogs="${catalogs}\n  <string>http://swscan.apple.com/content/catalogs/others/index-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
   fi
   if [[ ${MINOSVERSION} -le 9 ]]; then
-    catalogs="${catalogs}\n  <string>index-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
+    catalogs="${catalogs}\n  <string>http://swscan.apple.com/content/catalogs/others/index-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
   fi
   if [[ ${MINOSVERSION} -le 10 ]]; then
-    catalogs="${catalogs}\n  <string>index-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
+    catalogs="${catalogs}\n  <string>http://swscan.apple.com/content/catalogs/others/index-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
   fi
   if [[ ${MINOSVERSION} -le 11 ]]; then
-    catalogs="${catalogs}\n  <string>index-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
+    catalogs="${catalogs}\n  <string>http://swscan.apple.com/content/catalogs/others/index-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
   fi
   if [[ ${MINOSVERSION} -le 12 ]]; then
-    catalogs="${catalogs}\n  <string>index-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
+    catalogs="${catalogs}\n  <string>http://swscan.apple.com/content/catalogs/others/index-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
   fi
   if [[ ${MINOSVERSION} -le 13 ]]; then
-    catalogs="${catalogs}\n  <string>index-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
+    catalogs="${catalogs}\n  <string>http://swscan.apple.com/content/catalogs/others/index-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
   fi
   catalogs="${catalogs}\n</array>"
 
