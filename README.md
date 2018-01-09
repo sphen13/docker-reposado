@@ -12,7 +12,7 @@ MINOSVERSION | | Minimum minor OS version to mirror updates for. _(ie. 10.12.X =
 USERNAME | admin | Margarita username
 PASSWORD | password | Margarita password
 PORT | 8080 | Port reposado listens on
-LISTEN_PORT | 80 | Port margarita listens on
+LISTEN_PORT | 8089 | Port margarita listens on
 
 ## Sample Usage
 
@@ -31,8 +31,8 @@ docker run -d --name reposado \
     -v /var/docker/reposado/metadata:/reposado/metadata \
     -e USERNAME=admin \
     -e PASSWORD='password' \
-    -p 80:80 \
     -p 8080:8080 \
+    -p 8089:8089 \
     --restart always \
     sphen/reposado
 ```
@@ -53,7 +53,7 @@ By using `--volumes-from` and `--link` we are able to take and use settings from
 
 ## What Else is There?
 
-Well - if you are versed in docker you are on your way - but as a hint, you can simply only serve reposado by excluding `-p 8080:8080`.  You may also serve on a different port than 80 for margarita by changing `-p 80:80` to `-p 8089:80` for example.  There are other **environment variables** listed above that may help you tweak things.
+Well - if you are versed in docker you are on your way - but as a hint, if you want you can only serve reposado by excluding `-p 8089:8089` from the run command.  You may also serve on a different port than 8089 for margarita by changing `-p 8089:8089` to `-p 80:8089` for example.  There are other **environment variables** listed above that may help you tweak things.
 
 ### But I want HTTPS!!!!
 
