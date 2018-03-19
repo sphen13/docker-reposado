@@ -70,7 +70,7 @@ By using `--volumes-from` and `--link` we are able to take and use settings from
 
 The [Python SAML Toolkit][5] from OneLogin has been implemented for margarita if you pull the `saml` tag.  As margarita does not have a permissions structure built in, we are just looking for a valid SAML assertion for access (no attributes needed).
 
-I am not going to walkthrough configuration here as it is very popular among other apps that implement SAML and the configuration is beyond the scope here.  If you want to use SAML you must take over the configuration within the `/app/saml` directory within the container.  The easiest would be to provide a mapped folder for this location and populate with your configuration.  The expected and example structure for this folder can be seen [at this link][5].
+I am not going to walkthrough configuration here as it is very popular among other apps that implement SAML and the configuration is beyond the scope here.  If you want to use SAML you must take over the configuration within the `/app/saml` directory within the container.  The easiest would be to provide a mapped folder for this location and populate with your configuration.  The expected and example structure for this folder can be seen [at this link][4].
 
 ### What Else is There?
 
