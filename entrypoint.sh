@@ -33,7 +33,7 @@ sed -i "s|REPOSADO_PORT|${PORT}|g" /etc/nginx/conf.d/reposado.conf
 echo "Setting LocalCatalogURLBase to $LOCALCATALOGURLBASE"
 sed -i "s|REPLACEME|$LOCALCATALOGURLBASE|g" /reposado/code/preferences.plist
 
-if [[ ${MINOSVERSION} || ${REPOSADO_ENV_MINOSVERSION} ]]; then
+if [[ ${MINOSVERSION} ]]; then
   echo "Setting AppleCatalogURLs to 10.$MINOSVERSION.X as minimum"
 
   catalogs="<key>AppleCatalogURLs</key>\n<array>"
@@ -68,9 +68,10 @@ else
   sed -i "s|REPLACECATALOGS||g" /reposado/code/preferences.plist
 fi
 
-if [[ ${HUMANREADABLESIZES} || ${REPOSADO_ENV_HUMANREADABLESIZES} ]]; then
-  echo "Setting HumanReadableSizes key to TRUE"
-  extra_key="<key>HumanReadableSizes</key>\n	<true/>"
+if [[ ${HUMANREADABLESIZES} ]]; then
+
+  echo "Setting HumanReadableSizes key to ${HUMANREADABLESIZES}"
+  extra_key="<key>HumanReadableSizes</key>\n	<${HUMANREADABLESIZES}/>"
   sed -i "s|REPLACEEXTRAKEYS|$extra_key|g" /reposado/code/preferences.plist
 else
   sed -i "s|REPLACEEXTRAKEYS||g" /reposado/code/preferences.plist
