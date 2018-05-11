@@ -77,13 +77,5 @@ else
   sed -i "s|REPLACEEXTRAKEYS||g" /reposado/code/preferences.plist
 fi
 
-# set up basic auth for magarita
-if [[ ${USERNAME} && ${PASSWORD} ]]; then
-  echo "Setting Margarita username/password"
-
-  sed -i "s|'admin'|'$USERNAME'|g" /app/margarita.py
-  sed -i "s|'password'|'$PASSWORD'|g" /app/margarita.py
-fi
-
 # execute what was passed on commandline
 exec "$@"
