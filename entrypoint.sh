@@ -22,6 +22,9 @@ fi
 if [[ ${REPOSADO_ENV_MINOSVERSION} ]]; then
   MINOSVERSION=${REPOSADO_ENV_MINOSVERSION}
 fi
+if [[ ${REPOSADO_ENV_HUMANREADABLESIZES} ]]; then
+  HUMANREADABLESIZES=${REPOSADO_ENV_HUMANREADABLESIZES}
+fi
 
 # set up nginx for margarita
 sed -i "s|REPOSADO_PORT|${PORT}|g" /etc/nginx/conf.d/reposado.conf
@@ -63,6 +66,14 @@ if [[ ${MINOSVERSION} || ${REPOSADO_ENV_MINOSVERSION} ]]; then
   sed -i "s|REPLACECATALOGS|$catalogs|g" /reposado/code/preferences.plist
 else
   sed -i "s|REPLACECATALOGS||g" /reposado/code/preferences.plist
+fi
+
+if [[ ${HUMANREADABLESIZES} || ${REPOSADO_ENV_HUMANREADABLESIZES} ]]; then
+  echo "Setting HumanReadableSizes key to TRUE"
+  extra_key="<key>HumanReadableSizes</key>\n	<true/>"
+  sed -i "s|REPLACEEXTRAKEYS|$extra_key|g" /reposado/code/preferences.plist
+else
+  sed -i "s|REPLACEEXTRAKEYS||g" /reposado/code/preferences.plist
 fi
 
 # set up basic auth for magarita

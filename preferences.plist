@@ -9,5 +9,6 @@
 	<key>UpdatesRootDir</key>
 	<string>/reposado/html</string>
 REPLACECATALOGS
+REPLACEEXTRAKEYS
 </dict>
 </plist>

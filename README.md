@@ -18,6 +18,7 @@ USERNAME | admin | Margarita username
 PASSWORD | password | Margarita password
 PORT | 8080 | Port reposado listens on
 LISTEN_PORT | 8089 | Port margarita listens on
+HUMANREADABLESIZES | False |
 
 ### Volumes
 
