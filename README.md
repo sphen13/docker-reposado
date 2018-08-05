@@ -19,6 +19,8 @@ PASSWORD | password | Margarita password
 PORT | 8080 | Port reposado listens on
 LISTEN_PORT | 8089 | Port margarita listens on
 HUMANREADABLESIZES | False |
+ONLYHOSTDEPRECATED | False | Only host deprecated items, point current updates directly to apple
+ALWAYSREWRITEDISTRIBUTIONURLS | False | 
 
 ### Volumes
 
