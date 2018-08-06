@@ -25,6 +25,12 @@ fi
 if [[ ${REPOSADO_ENV_HUMANREADABLESIZES} ]]; then
   HUMANREADABLESIZES=${REPOSADO_ENV_HUMANREADABLESIZES}
 fi
+if [[ ${REPOSADO_ENV_ONLYHOSTDEPRECATED} ]]; then
+  ONLYHOSTDEPRECATED=${REPOSADO_ENV_ONLYHOSTDEPRECATED}
+fi
+if [[ ${REPOSADO_ENV_ALWAYSREWRITEDISTRIBUTIONURLS} ]]; then
+  ALWAYSREWRITEDISTRIBUTIONURLS=${REPOSADO_ENV_ALWAYSREWRITEDISTRIBUTIONURLS}
+fi
 
 # set up nginx for margarita
 sed -i "s|REPOSADO_PORT|${PORT}|g" /etc/nginx/conf.d/reposado.conf
@@ -68,14 +74,22 @@ else
   sed -i "s|REPLACECATALOGS||g" /reposado/code/preferences.plist
 fi
 
+extra_key=""
 if [[ ${HUMANREADABLESIZES} ]]; then
-
   echo "Setting HumanReadableSizes key to ${HUMANREADABLESIZES}"
-  extra_key="<key>HumanReadableSizes</key>\n	<${HUMANREADABLESIZES}/>"
-  sed -i "s|REPLACEEXTRAKEYS|$extra_key|g" /reposado/code/preferences.plist
-else
-  sed -i "s|REPLACEEXTRAKEYS||g" /reposado/code/preferences.plist
+  extra_key="<key>HumanReadableSizes</key>\n<${HUMANREADABLESIZES}/>\n"
 fi
+
+if [[ ${ONLYHOSTDEPRECATED} ]]; then
+  echo "Setting OnlyRewriteDeprecatedURLs key to ${ONLYHOSTDEPRECATED}"
+  extra_key="${extra_key}<key>OnlyRewriteDeprecatedURLs</key>\n<${ONLYHOSTDEPRECATED}/>\n"
+fi
+
+if [[ ${ALWAYSREWRITEDISTRIBUTIONURLS} ]]; then
+  echo "Setting AlwaysRewriteDistributionURLs key to ${ALWAYSREWRITEDISTRIBUTIONURLS}"
+  extra_key="${extra_key}<key>AlwaysRewriteDistributionURLs</key>\n<${ALWAYSREWRITEDISTRIBUTIONURLS}/>"
+fi
+sed -i "s|REPLACEEXTRAKEYS|$extra_key|g" /reposado/code/preferences.plist
 
 # execute what was passed on commandline
 exec "$@"
