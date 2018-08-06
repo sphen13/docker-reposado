@@ -82,7 +82,7 @@ fi
 
 if [[ ${ONLYHOSTDEPRECATED} ]]; then
   echo "Setting OnlyRewriteDeprecatedURLs key to ${ONLYHOSTDEPRECATED}"
-  extra_key="${extra_key}<key>OnlyRewriteDeprecatedURLs</key>\n<${ONLYHOSTDEPRECATED}/>"
+  extra_key="${extra_key}<key>OnlyRewriteDeprecatedURLs</key>\n<${ONLYHOSTDEPRECATED}/>\n"
 fi
 
 if [[ ${ALWAYSREWRITEDISTRIBUTIONURLS} ]]; then
