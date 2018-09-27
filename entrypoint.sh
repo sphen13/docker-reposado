@@ -67,6 +67,9 @@ if [[ ${MINOSVERSION} ]]; then
   if [[ ${MINOSVERSION} -le 13 ]]; then
     catalogs="${catalogs}\n  <string>http://swscan.apple.com/content/catalogs/others/index-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
   fi
+  if [[ ${MINOSVERSION} -le 14 ]]; then
+    catalogs="${catalogs}\n  <string>https://swscan.apple.com/content/catalogs/others/index-10.14-10.13-10.12-10.11-10.10-10.9-mountainlion-lion-snowleopard-leopard.merged-1.sucatalog</string>"
+  fi
   catalogs="${catalogs}\n</array>"
 
   sed -i "s|REPLACECATALOGS|$catalogs|g" /reposado/code/preferences.plist
