@@ -9,7 +9,6 @@ COPY reposado /reposado
 RUN rm -rf /app
 COPY margarita /app
 ADD preferences.plist /reposado/code/
-ADD nginx.conf /etc/nginx/conf.d/nginx.conf
 ADD reposado.conf /etc/nginx/conf.d/reposado.conf
 ADD uwsgi.ini /app/
 ADD entrypoint.sh /
