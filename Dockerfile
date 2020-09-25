@@ -5,6 +5,10 @@ ENV LOCALCATALOGURLBASE http://reposado:8080
 ENV PORT 8080
 ENV LISTEN_PORT 8089
 
+RUN apt-get update && apt-get install -y ca-certificates \
+    && rm -rf /var/lib/apt/lists/* && \
+    update-ca-certificates
+
 COPY reposado /reposado
 RUN rm -rf /app
 COPY margarita /app
